@@ -32,6 +32,3 @@ yarn-error.log*
 Thumbs.db
 
 # Certificates
-*.pem
-*.key
-*.crt 
