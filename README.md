@@ -1,11 +1,12 @@
 # Initial Email Outlook Add-in
 
-An Outlook Add-in that allows you to extract the body text of a selected email and save it as a JSON file.
+An Outlook Add-in that allows you to extract the body text of a selected email, save it as a JSON file, and send it to Azure OpenAI for analysis.
 
 ## Features
 
 - Extract email body content from the selected email in Outlook
 - Save email data (subject, sender, date, body) as a JSON file
+- Send email data to Azure OpenAI for analysis and summarization
 - Works with Outlook Desktop (Windows/Mac) and Outlook Web
 
 ## Prerequisites
@@ -13,6 +14,7 @@ An Outlook Add-in that allows you to extract the body text of a selected email a
 - [Node.js](https://nodejs.org) (LTS version recommended)
 - Microsoft Outlook (Desktop or Web)
 - OpenSSL (for certificate generation)
+- Azure OpenAI API access
 
 ## Setup for Development
 
@@ -43,10 +45,25 @@ An Outlook Add-in that allows you to extract the body text of a selected email a
    # Return to project root
    cd ..
    ```
-5. Start the development server:
+5. Configure Azure OpenAI credentials:
+   - Create a `.env` file in the project root
+   - Add your Azure OpenAI credentials:
+     ```
+     AZURE_OPENAI_ENDPOINT=your_endpoint_here  # e.g. https://your-resource-name.openai.azure.com/
+     AZURE_OPENAI_API_KEY=your_api_key_here
+     AZURE_OPENAI_DEPLOYMENT_NAME=your_deployment_name_here
+     ```
+6. Start the development server:
    ```
    npm start
    ```
+
+## Azure OpenAI Setup
+
+1. Create an Azure OpenAI resource in the [Azure Portal](https://portal.azure.com)
+2. Deploy a model in your Azure OpenAI resource
+3. Get your endpoint URL and API key from the Azure Portal
+4. Add these credentials to your `.env` file as shown above
 
 ## Sideloading the Add-in in Outlook
 
@@ -78,8 +95,9 @@ An Outlook Add-in that allows you to extract the body text of a selected email a
 
 1. Open Outlook and select an email
 2. Click the "Initial Email" button in the ribbon
-3. In the taskpane that appears, click "Save Email as JSON"
-4. The email content will be downloaded as a JSON file to your local system
+3. In the taskpane that appears:
+   - Click "Save Email as JSON" to download the email content as a JSON file
+   - Click "Send to Azure OpenAI" to analyze the email using Azure OpenAI
 
 ## Troubleshooting
 
@@ -88,6 +106,13 @@ If you encounter certificate-related errors:
 1. Make sure you've generated all the required certificate files in the `certs` directory
 2. Verify that the certificates are valid and not expired
 3. Check that the certificates are properly referenced in your development environment
+
+### Azure OpenAI Issues
+If you encounter issues with the Azure OpenAI integration:
+1. Verify that your Azure OpenAI credentials in the `.env` file are correct
+2. Check that your Azure OpenAI deployment is active and available
+3. Ensure that you have sufficient quota available for your Azure OpenAI resource
+4. Check the browser console for any API-related error messages
 
 ## License
 

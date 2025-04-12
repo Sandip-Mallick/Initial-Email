@@ -43,6 +43,7 @@
             border-radius: 2px;
             cursor: pointer;
             transition: all 0.1s ease-in-out;
+            margin: 8px 0;
         }
         
         .ms-Button:hover {
@@ -58,6 +59,17 @@
             min-height: 32px;
             text-align: center;
         }
+        
+        #response-container {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px;
+            min-height: 100px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
     </style>
 </head>
 
@@ -67,7 +79,11 @@
         <button id="save-button" class="ms-Button">
             <span class="ms-Button-label">Save Email as JSON</span>
         </button>
+        <button id="openai-button" class="ms-Button">
+            <span class="ms-Button-label">Send to Azure OpenAI</span>
+        </button>
         <div id="status"></div>
+        <div id="response-container"></div>
     </div>
 </body>
 </html> 

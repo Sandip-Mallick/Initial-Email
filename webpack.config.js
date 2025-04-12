@@ -1,5 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+// Load environment variables from .env file
+const env = dotenv.config().parsed || {};
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 module.exports = {
   mode: 'development',
@@ -40,7 +49,8 @@ module.exports = {
       template: './src/commands/commands.html',
       filename: 'commands.html',
       chunks: ['commands']
-    })
+    }),
+    new webpack.DefinePlugin(envKeys)
   ],
   module: {
     rules: [
