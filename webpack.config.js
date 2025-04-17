@@ -12,11 +12,19 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
   return prev;
 }, {});
 
+// Add environment variables from actual process.env (for Render.com)
+// This ensures environment variables set on Render are included
+Object.keys(process.env).forEach(key => {
+  if (!envKeys[`process.env.${key}`] && key.startsWith('AZURE_')) {
+    envKeys[`process.env.${key}`] = JSON.stringify(process.env[key].trim());
+  }
+});
+
 // Log the environment variables for debugging
 console.log('Environment variables loaded:', Object.keys(envKeys));
 
 module.exports = {
-  mode: 'development',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: {
     taskpane: './src/taskpane/taskpane.js',
     commands: './src/commands/commands.js',
@@ -55,7 +63,11 @@ module.exports = {
       filename: 'commands.html',
       chunks: ['commands']
     }),
-    new webpack.DefinePlugin(envKeys)
+    new webpack.DefinePlugin({
+      // Ensure process.env is defined in the browser
+      'process.env': JSON.stringify({}),
+      ...envKeys
+    })
   ],
   module: {
     rules: [

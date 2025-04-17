@@ -99,7 +99,17 @@ async function sendToAzureOpenAI() {
         
         // Hard-coded endpoint for testing
         const endpoint = "https://epmfl.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview";
-        const apiKey = process.env.AZURE_OPENAI_API_KEY || "your_api_key_here";
+        
+        // Safe access to process.env with fallback
+        let apiKey;
+        try {
+          apiKey = typeof process !== 'undefined' && process.env && process.env.AZURE_OPENAI_API_KEY 
+            ? process.env.AZURE_OPENAI_API_KEY 
+            : "your_api_key_here";
+        } catch (e) {
+          console.error("Error accessing process.env:", e);
+          apiKey = "your_api_key_here";
+        }
         
         if (apiKey === "your_api_key_here") {
           statusElement.innerText = "Azure OpenAI API key not configured. Please add your key to the .env file.";

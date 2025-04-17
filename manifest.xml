@@ -33,6 +33,7 @@
   <!-- Domains that will be allowed when navigating. For example, if you use ShowTaskpane and then have an href link, navigation will only be allowed if the domain is on this list. -->
   <AppDomains>
     <AppDomain>https://localhost:3000</AppDomain>
+    <AppDomain>https://initial-email.vercel.app</AppDomain>
   </AppDomains>
 
   <!-- End Basic Settings. -->
@@ -51,15 +52,15 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
+        <SourceLocation DefaultValue="https://initial-email.onrender.com/taskpane.html"/>
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
       <TabletSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
+        <SourceLocation DefaultValue="https://initial-email.onrender.com/taskpane.html"/>
         <RequestedHeight>250</RequestedHeight>
       </TabletSettings>
       <PhoneSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
+        <SourceLocation DefaultValue="https://initial-email.onrender.com/taskpane.html"/>
       </PhoneSettings>
     </Form>
   </FormSettings>
@@ -120,8 +121,8 @@
         <bt:Image id="Icon.80x80" DefaultValue="https://cdn-icons-png.freepik.com/256/15861/15861315.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://initial-email.onrender.com/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://initial-email.onrender.com/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Legal Email Tools"/>
