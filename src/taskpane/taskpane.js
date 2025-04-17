@@ -5,6 +5,7 @@ Office.onReady((info) => {
   if (info.host === Office.HostType.Outlook) {
     document.getElementById("save-button").onclick = saveEmailAsJson;
     document.getElementById("openai-button").onclick = sendToAzureOpenAI;
+    document.getElementById("reply-button").onclick = replyWithResponse;
   }
 });
 
@@ -70,6 +71,7 @@ async function sendToAzureOpenAI() {
   statusElement.innerText = "Preparing to send to Azure OpenAI...";
   responseContainer.style.display = "none";
   document.getElementById("copy-button").style.display = "none";
+  document.getElementById("reply-button").style.display = "none";
 
   try {
     // Get the current item (email)
@@ -293,6 +295,7 @@ Important Notes:
             responseContainer.innerText = aiResponse;
             responseContainer.style.display = "block";
             document.getElementById("copy-button").style.display = "inline-block";
+            document.getElementById("reply-button").style.display = "inline-block";
             statusElement.innerText = "Email response generated!";
           } else {
             statusElement.innerText = "No content in the response from Azure OpenAI.";
@@ -309,6 +312,46 @@ Important Notes:
   } catch (error) {
     console.error("General error:", error);
     statusElement.innerText = `Error: ${error.message}`;
+  }
+}
+
+/**
+ * Creates a reply to the current email with the generated response
+ */
+function replyWithResponse() {
+  const statusElement = document.getElementById("status");
+  const responseContainer = document.getElementById("response-container");
+  
+  try {
+    statusElement.innerText = "Creating reply...";
+    
+    // Get the response text
+    const responseText = responseContainer.innerText;
+    if (!responseText) {
+      statusElement.innerText = "No response generated yet.";
+      return;
+    }
+    
+    // Get the current item (email)
+    const item = Office.context.mailbox.item;
+    
+    if (!item) {
+      statusElement.innerText = "No email selected";
+      return;
+    }
+    
+    // Create a reply
+    Office.context.mailbox.item.displayReplyForm({
+      htmlBody: responseText.replace(/\n/g, "<br>"),
+      subject: item.subject.startsWith("Conference -") ? 
+        item.subject : 
+        "Conference - " + item.subject
+    });
+    
+    statusElement.innerText = "Reply created with generated response.";
+  } catch (error) {
+    console.error("Reply error:", error);
+    statusElement.innerText = `Error creating reply: ${error.message}`;
   }
 }
 

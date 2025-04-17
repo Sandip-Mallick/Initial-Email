@@ -32,6 +32,14 @@
             text-align: center;
         }
         
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
         .ms-Button {
             display: inline-block;
             text-decoration: none;
@@ -46,7 +54,6 @@
             border-radius: 2px;
             cursor: pointer;
             transition: all 0.1s ease-in-out;
-            margin: 8px 0;
         }
         
         .ms-Button:hover {
@@ -94,12 +101,17 @@
 <body class="ms-font-m ms-Fabric">
     <div id="app">
         <h2 id="app-title">Legal Email Response Generator</h2>
-        <button id="save-button" class="ms-Button">
-            <span class="ms-Button-label">Save Email as JSON</span>
-        </button>
-        <button id="openai-button" class="ms-Button">
-            <span class="ms-Button-label">Generate Legal Response</span>
-        </button>
+        <div class="button-container">
+            <button id="save-button" class="ms-Button">
+                <span class="ms-Button-label">Save Email as JSON</span>
+            </button>
+            <button id="openai-button" class="ms-Button">
+                <span class="ms-Button-label">Generate Legal Response</span>
+            </button>
+            <button id="reply-button" class="ms-Button" style="display: none;">
+                <span class="ms-Button-label">Reply with Response</span>
+            </button>
+        </div>
         <div id="status"></div>
         <div id="response-container"></div>
         <button id="copy-button" class="ms-Button">
