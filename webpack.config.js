@@ -26,7 +26,7 @@ const createRuntimeConfig = () => {
   const configPath = path.resolve(__dirname, 'dist', 'runtime-config.js');
   const configContent = `
     window.__env = {
-      AZURE_OPENAI_API_KEY: "${process.env.AZURE_OPENAI_API_KEY || env.AZURE_OPENAI_API_KEY || '1BKg6MUwJWXQQXF7pMF8LnQEmCqVo0nZXaU0TobQjSyKwWxsGu7bJQQJ99BCAC77bzfXJ3w3AAABACOG3rL5'}",
+      AZURE_OPENAI_API_KEY: "${process.env.AZURE_OPENAI_API_KEY || env.AZURE_OPENAI_API_KEY || ''}",
       AZURE_OPENAI_ENDPOINT: "${process.env.AZURE_OPENAI_ENDPOINT || env.AZURE_OPENAI_ENDPOINT || 'https://epmfl.openai.azure.com/openai/deployments/gpt-4o/chat/completions?api-version=2024-02-15-preview'}"
     };
   `;
