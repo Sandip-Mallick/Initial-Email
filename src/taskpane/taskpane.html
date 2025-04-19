@@ -150,16 +150,35 @@
 
 <body class="ms-font-m ms-Fabric">
     <div id="app">
-        <h2 id="app-title">Legal Email Response Generator</h2>
+        <h2 id="app-title" style="color: #6909e6;">AI Email Response Generator</h2>
         <div class="button-container">
-            <button id="save-button" class="ms-Button">
+            <button id="save-button" class="ms-Button" style="display: none;">
                 <span class="ms-Button-label">Save Email as JSON</span>
             </button>
             <button id="openai-button" class="ms-Button">
-                <span class="ms-Button-label">Generate Legal Response</span>
+                <span class="ms-Button-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="margin-right: 6px; vertical-align: text-bottom;" viewBox="0 0 16 16">
+                        <defs>
+                            <linearGradient id="galaxy-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#9100ff;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#6909e6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path fill="url(#galaxy-gradient)" d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.435 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435ZM7.25 3.83a.75.75 0 1 1 1.5 0 .75.75 0 0 1-1.5 0Zm1.5 8.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm-.25-6.25a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5a.75.75 0 0 1 .75-.75Z"/>
+                        <circle cx="8" cy="8" r="3.5" stroke="url(#galaxy-gradient)" stroke-width="0.5" fill="none"/>
+                    </svg>
+                    Generate AI Response
+                </span>
             </button>
             <button id="reply-button" class="ms-Button">
-                <span class="ms-Button-label">Reply with Response</span>
+                <span class="ms-Button-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="margin-right: 6px; vertical-align: text-bottom;" viewBox="0 0 16 16">
+                        <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
+                        <path d="M10.921 11.9 6.353 8.62a.719.719 0 0 1 0-1.238L10.921 4.1A.716.716 0 0 1 12 4.719V6c1.5 0 3 0.5 3.5 4-1-2-2.5-2-3.5-2v1.281c0 .56-.606.898-1.079.62z"/>
+                    </svg>
+                    Reply with Response
+                </span>
             </button>
         </div>
         <div id="status"></div>
@@ -167,7 +186,13 @@
             <div id="response-container"></div>
             <div class="action-buttons">
                 <button id="copy-button" class="ms-Button">
-                    <span class="ms-Button-label">Copy Response</span>
+                    <span class="ms-Button-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="margin-right: 6px; vertical-align: text-bottom;" viewBox="0 0 16 16">
+                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                        </svg>
+                        Copy Response
+                    </span>
                 </button>
             </div>
         </div>
