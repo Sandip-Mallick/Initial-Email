@@ -23,19 +23,23 @@
             align-items: center;
             justify-content: flex-start;
             margin: 0;
-            padding: 20px 10px; /* Adjusted horizontal padding */
+            padding: 10px;
             font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
             height: 100vh;
             overflow: hidden;
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 100%;
         }
         
         #app {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             display: flex;
             flex-direction: column;
             height: 100%;
-            margin: 0 auto; /* Add auto margins for centering */
+            margin: 0 auto; /* Center the app container */
+            box-sizing: border-box; /* Include padding in width calculation */
         }
         
         #app-title {
@@ -89,14 +93,17 @@
             min-height: 200px;
             max-height: 400px;
             margin-bottom: 80px; /* Increased space for the button below */
-            width: 100%; /* Ensure it takes full width */
+            width: 100%; /* Ensure full width */
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box; /* Include padding in width calculation */
         }
         
         #response-container {
             flex: 1;
             width: 100%;
             border: 1px solid #ccc;
-            padding: 15px;
+            padding: 15px 20px;
             border-radius: 8px;
             display: none;
             white-space: pre-wrap;
@@ -107,7 +114,9 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin: 0 auto; /* Center the container */
             box-sizing: border-box; /* Include padding in width calculation */
-            text-align: left; /* Ensure text aligns properly */
+            text-align: left; /* Keep text left-aligned */
+            cursor: text; /* Show text cursor */
+            user-select: text; /* Make text selectable by default */
         }
         
         #response-container strong {
@@ -167,14 +176,56 @@
     <script>
         // Add a copy to clipboard function
         document.getElementById('copy-button').addEventListener('click', function() {
-            const responseText = document.getElementById('response-container').innerText;
-            navigator.clipboard.writeText(responseText)
-                .then(() => {
+            const responseContainer = document.getElementById('response-container');
+            const responseText = responseContainer.innerText;
+            
+            // Make the text easily selectable
+            responseContainer.style.userSelect = 'all';
+            
+            // Create a fallback method using execCommand which has better compatibility
+            try {
+                // Create a temporary textarea element
+                const textarea = document.createElement('textarea');
+                textarea.value = responseText;
+                
+                // Make the textarea non-editable to avoid focus and ensure it's not visible
+                textarea.setAttribute('readonly', '');
+                textarea.style.position = 'absolute';
+                textarea.style.left = '-9999px';
+                
+                // Append the textarea to the document
+                document.body.appendChild(textarea);
+                
+                // Select the text in the textarea
+                textarea.select();
+                
+                // Execute the copy command
+                const successful = document.execCommand('copy');
+                
+                // Remove the temporary textarea
+                document.body.removeChild(textarea);
+                
+                if (successful) {
                     document.getElementById('status').innerText = "Response copied to clipboard!";
-                })
-                .catch(err => {
-                    document.getElementById('status').innerText = "Failed to copy: " + err;
-                });
+                } else {
+                    throw new Error('Copy command failed');
+                }
+            } catch (err) {
+                // Try using the modern Clipboard API as fallback
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(responseText)
+                        .then(() => {
+                            document.getElementById('status').innerText = "Response copied to clipboard!";
+                        })
+                        .catch(clipboardErr => {
+                            document.getElementById('status').innerText = "Please select the text manually (click and Ctrl+A) and copy (Ctrl+C).";
+                            console.error("Clipboard error:", clipboardErr);
+                        });
+                } else {
+                    document.getElementById('status').innerText = "Please select the text manually (click and Ctrl+A) and copy (Ctrl+C).";
+                    console.error("Copy error:", err);
+                }
+            }
         });
     </script>
 </body>

@@ -65,7 +65,7 @@
     </Form>
   </FormSettings>
 
-  <Permissions>ReadItem</Permissions>
+  <Permissions>ReadWriteItem</Permissions>
   
   <!-- Rule element is required before VersionOverrides -->
   <Rule xsi:type="RuleCollection" Mode="Or">

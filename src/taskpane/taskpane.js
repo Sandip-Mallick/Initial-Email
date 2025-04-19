@@ -8,6 +8,9 @@ Office.onReady((info) => {
     document.getElementById("openai-button").onclick = sendToAzureOpenAI;
     document.getElementById("reply-button").onclick = replyWithResponse;
     
+    // Hide the reply button initially - it will be shown when a response is generated
+    document.getElementById("reply-button").style.display = "none";
+    
     // Log initialization
     console.log("Add-in initialized in Outlook");
   }
@@ -342,9 +345,6 @@ Important Notes
             copyButton.style.display = "inline-block";
             replyButton.style.display = "inline-block";
             statusElement.innerText = "Email response generated!";
-            
-            // Auto-scroll to ensure buttons are visible
-            copyButton.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           } else {
             statusElement.innerText = "No content in the response from Azure OpenAI.";
           }
