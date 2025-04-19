@@ -23,7 +23,7 @@
             align-items: center;
             justify-content: flex-start;
             margin: 0;
-            padding: 20px;
+            padding: 20px 10px; /* Adjusted horizontal padding */
             font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
             height: 100vh;
             overflow: hidden;
@@ -35,6 +35,7 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            margin: 0 auto; /* Add auto margins for centering */
         }
         
         #app-title {
@@ -87,7 +88,8 @@
             flex: 1;
             min-height: 200px;
             max-height: 400px;
-            margin-bottom: 60px; /* Space for the button below */
+            margin-bottom: 80px; /* Increased space for the button below */
+            width: 100%; /* Ensure it takes full width */
         }
         
         #response-container {
@@ -103,6 +105,9 @@
             overflow-y: auto;
             background-color: #f9f9f9;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0 auto; /* Center the container */
+            box-sizing: border-box; /* Include padding in width calculation */
+            text-align: left; /* Ensure text aligns properly */
         }
         
         #response-container strong {
@@ -114,13 +119,14 @@
         
         .action-buttons {
             position: absolute;
-            bottom: -50px;
+            bottom: -60px; /* Increased distance from bottom */
             left: 0;
             right: 0;
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 20px; /* Increased top margin */
+            padding-bottom: 20px; /* Added bottom padding */
         }
         
         #copy-button {
@@ -128,7 +134,7 @@
         }
         
         #reply-button {
-            display: none;
+            display: inline-block; /* Changed to inline-block to show properly */
         }
     </style>
 </head>
@@ -143,6 +149,9 @@
             <button id="openai-button" class="ms-Button">
                 <span class="ms-Button-label">Generate Legal Response</span>
             </button>
+            <button id="reply-button" class="ms-Button">
+                <span class="ms-Button-label">Reply with Response</span>
+            </button>
         </div>
         <div id="status"></div>
         <div class="response-wrapper">
@@ -150,9 +159,6 @@
             <div class="action-buttons">
                 <button id="copy-button" class="ms-Button">
                     <span class="ms-Button-label">Copy Response</span>
-                </button>
-                <button id="reply-button" class="ms-Button">
-                    <span class="ms-Button-label">Reply with Response</span>
                 </button>
             </div>
         </div>
