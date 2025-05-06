@@ -12,7 +12,7 @@
   <Id>11111111-2222-3333-4444-555555555555</Id>
 
   <!-- Version is required before DisplayName according to the schema -->
-  <Version>1.0.1</Version>
+  <Version>1.0.2</Version>
   
   <!-- ProviderName is required before DisplayName according to the schema -->
   <ProviderName>EP Admin Provider</ProviderName>
