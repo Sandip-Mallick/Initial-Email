@@ -1,24 +1,45 @@
-# Initial Email Outlook Add-in
+# EP Admin - Outlook Email Assistant
 
-An Outlook Add-in that allows you to extract the body text of a selected email, save it as a JSON file, and send it to Azure OpenAI for analysis.
+An Outlook Add-in that leverages Azure OpenAI to generate professional legal emails for various scenarios including initial correspondence, conference scheduling, and reminder emails.
 
 ## Features
 
-- Extract email body content from the selected email in Outlook
-- Save email data (subject, sender, date, body) as a JSON file
-- Send email data to Azure OpenAI for analysis and summarization
-- Works with Outlook Desktop (Windows/Mac) and Outlook Web
+- **AI-Powered Email Generation**: Uses Azure OpenAI to create contextually appropriate legal emails
+- **Multiple Email Templates**:
+  - Initial Email - For first client communications
+  - Conference for Draft Documents - For scheduling document review meetings
+  - Conference for Signing Documents - For scheduling document signing
+  - Multiple Reminder Types - For following up on various stages of legal processes
+- **Smart Context Extraction**: Automatically analyzes the content of received emails
+- **One-Click Email Responses**: Generate and reply with professionally formatted emails
+- **HTML Formatting**: All generated emails are properly formatted with HTML styling
+- **Works Across Platforms**: Compatible with Outlook Desktop (Windows/Mac) and Outlook Web
 
 ## Prerequisites
 
 - [Node.js](https://nodejs.org) (LTS version recommended)
 - Microsoft Outlook (Desktop or Web)
-- OpenSSL (for certificate generation)
+- OpenSSL (for certificate generation during development)
 - Azure OpenAI API access
+
+## Project Structure
+
+```
+EP-Admin/
+├── src/
+│   ├── commands/         # Menu commands and ribbon integration
+│   ├── handlers/         # Email generation logic for different scenarios
+│   ├── taskpane/         # Main UI interface
+│   └── utils/            # Shared utility functions
+├── assets/               # Images and static resources
+├── certs/                # Development certificates
+├── manifest.xml          # Add-in manifest for production
+└── dev-manifest.xml      # Add-in manifest for development
+```
 
 ## Setup for Development
 
-1. Clone or download this repository
+1. Clone this repository
 2. Navigate to the project directory
 3. Install the dependencies:
    ```
@@ -60,7 +81,7 @@ An Outlook Add-in that allows you to extract the body text of a selected email, 
 ## Azure OpenAI Setup
 
 1. Create an Azure OpenAI resource in the [Azure Portal](https://portal.azure.com)
-2. Deploy a model in your Azure OpenAI resource (e.g., GPT-4o)
+2. Deploy a model in your Azure OpenAI resource (recommended: GPT-4o)
 3. Get your full endpoint URL (including deployment name and API version) and API key from the Azure Portal
 4. Add these credentials to your `.env` file as shown above
 
@@ -71,7 +92,7 @@ An Outlook Add-in that allows you to extract the body text of a selected email, 
 2. Click on the gear icon (Settings) and select "Manage Add-ins"
 3. Click "My add-ins" in the left navigation
 4. Click the "+" icon and select "Add from file..."
-5. Browse to the `manifest.xml` file in the project root and select it
+5. Browse to the `dev-manifest.xml` file for local development or `manifest.xml` for production
 6. Follow the prompts to install the add-in
 
 ### Outlook Desktop (Mac)
@@ -79,7 +100,7 @@ An Outlook Add-in that allows you to extract the body text of a selected email, 
 2. Click "Tools" > "Add-ins"
 3. Click "My add-ins" in the left navigation
 4. Click the "+" icon and select "Add from file..."
-5. Browse to the `manifest.xml` file in the project root and select it
+5. Browse to the `dev-manifest.xml` file for local development or `manifest.xml` for production
 6. Follow the prompts to install the add-in
 
 ### Outlook Web
@@ -87,31 +108,67 @@ An Outlook Add-in that allows you to extract the body text of a selected email, 
 2. Click on the gear icon (Settings) and select "Manage Add-ins"
 3. Click "My add-ins" in the left navigation
 4. Click the "+" icon and select "Add from file..."
-5. Browse to the `manifest.xml` file in the project root and select it
+5. Browse to the `dev-manifest.xml` file for local development or `manifest.xml` for production
 6. Follow the prompts to install the add-in
 
 ## Usage
 
-1. Open Outlook and select an email
-2. Click the "Initial Email" button in the ribbon
-3. In the taskpane that appears:
-   - Click "Save Email as JSON" to download the email content as a JSON file
-   - Click "Send to Azure OpenAI" to analyze the email using Azure OpenAI
+1. Open Outlook and select an email or create a new message
+2. Click the "EP Admin" button in the ribbon to open the taskpane
+3. In the taskpane:
+   - Select the type of email you want to generate from the dropdown menus
+   - Click "Generate" to create the email using AI
+   - Review the generated content
+   - Click "Reply with Response" to insert the content into a reply
+   - Or click "Copy" to copy the content to your clipboard
+
+### Available Email Templates
+
+- **Initial Email**: Generate a response to a client's first contact
+- **Conference for Draft Documents**: Schedule a meeting to discuss draft documents
+- **Conference for Signing Documents**: Schedule a meeting for document signing
+- **Reminders**:
+  - Initial Email Reminder: Follow up on an unanswered initial contact
+  - Draft Document Reminder: Remind about reviewing draft documents
+  - Signing Document Reminder: Remind about signing documents
+  - Attorney/Guardian Reminder: Specific reminder for enduring attorney or guardian appointments
+  - Further Information Reminder: Request additional information
+
+## Deployment
+
+To deploy the add-in for production:
+
+1. Build the production version:
+   ```
+   npm run build
+   ```
+2. Host the built files on a secure HTTPS server
+3. Update the URLs in `manifest.xml` to point to your hosted version
+4. Share the `manifest.xml` file with users who need to install the add-in
 
 ## Troubleshooting
 
 ### Certificate Issues
-If you encounter certificate-related errors:
+If you encounter certificate-related errors during development:
+
 1. Make sure you've generated all the required certificate files in the `certs` directory
 2. Verify that the certificates are valid and not expired
 3. Check that the certificates are properly referenced in your development environment
 
 ### Azure OpenAI Issues
 If you encounter issues with the Azure OpenAI integration:
+
 1. Verify that your Azure OpenAI credentials in the `.env` file are correct
 2. Check that your Azure OpenAI deployment is active and available
 3. Ensure that you have sufficient quota available for your Azure OpenAI resource
 4. Check the browser console for any API-related error messages
+
+### UI Issues
+If buttons are not working correctly:
+
+1. Check the browser console for JavaScript errors
+2. Make sure the latest version of the add-in is installed
+3. Try reloading the add-in or restarting Outlook
 
 ## License
 
